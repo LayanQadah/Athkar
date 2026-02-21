@@ -3,70 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع الأذكار اليومية</title>
+    <title>أذكاري - تصميم عصري</title>
     <style>
+        /* إعدادات الخطوط والخلفية العامة */
+        :root {
+            --primary-color: #2c3e50; /* أزرق داكن فخم */
+            --accent-color: #d4af37;  /* ذهبي هادئ */
+            --bg-color: #f0f4f8;      /* رمادي فاتح مريح */
+            --card-bg: #ffffff;
+            --success: #27ae60;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: var(--bg-color);
+            color: #444;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
-        header {
-            text-align: center;
-            padding: 30px;
-            background-color: #2c3e50;
-            color: white;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
+
         .container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
+
+        /* الهيدر أو رأس الصفحة */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* عناوين الأقسام */
         .section-title {
-            border-right: 5px solid #27ae60;
-            padding-right: 15px;
-            margin: 20px 0;
-            color: #27ae60;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
         }
+
+        .section-title::before {
+            content: "";
+            width: 8px;
+            height: 25px;
+            background-color: var(--accent-color);
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        /* بطاقة الذكر */
         .zekr-card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            background: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            border-bottom: 4px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
         .zekr-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
+            border-bottom-color: var(--accent-color);
         }
+
         .zekr-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
+
+        /* زر العداد */
+        .counter-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+
         .counter-btn {
-            background-color: #27ae60;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 8px 25px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
+            transition: background 0.2s;
         }
+
         .counter-btn:active {
-            background-color: #1e8449;
+            transform: scale(0.95);
         }
-        .count-display {
+
+        .count-num {
+            font-size: 1.2rem;
             font-weight: bold;
-            margin-right: 10px;
+            color: var(--success);
         }
+
+        .target-num {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
         footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            padding: 30px;
+            color: #999;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -74,52 +136,63 @@
 
 <div class="container">
     <header>
-        <h1>أذكار المسلم</h1>
-        <p>ألا بذكر الله تطمئن القلوب</p>
+        <h1>أذكاري</h1>
+        <p>نور لقلبك في كل يوم</p>
     </header>
 
     <h2 class="section-title">أذكار الصباح</h2>
     
     <div class="zekr-card">
-        <p class="zekr-text">"أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له."</p>
-        <button class="counter-btn" onclick="updateCounter(this)">التكرار: <span class="count-display">0</span> / 1</button>
+        <p class="zekr-text">أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له.</p>
+        <div class="counter-container">
+            <button class="counter-btn" onclick="addCount(this, 1)">تكرار</button>
+            <div>
+                <span class="count-num">0</span> <span class="target-num">/ 1</span>
+            </div>
+        </div>
     </div>
 
     <div class="zekr-card">
-        <p class="zekr-text">"اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور."</p>
-        <button class="counter-btn" onclick="updateCounter(this)">التكرار: <span class="count-display">0</span> / 1</button>
+        <p class="zekr-text">اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور.</p>
+        <div class="counter-container">
+            <button class="counter-btn" onclick="addCount(this, 1)">تكرار</button>
+            <div>
+                <span class="count-num">0</span> <span class="target-num">/ 1</span>
+            </div>
+        </div>
     </div>
 
-    <h2 class="section-title">أذكار المساء</h2>
-    
-    <div class="zekr-card">
-        <p class="zekr-text">"أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له."</p>
-        <button class="counter-btn" onclick="updateCounter(this)">التكرار: <span class="count-display">0</span> / 1</button>
-    </div>
+    <h2 class="section-title">تسبيح</h2>
 
-    <h2 class="section-title">تسبيح واستغفار</h2>
-    
     <div class="zekr-card">
-        <p class="zekr-text">"سبحان الله وبحمده"</p>
-        <button class="counter-btn" onclick="updateCounter(this)">التكرار: <span class="count-display">0</span> / 100</button>
+        <p class="zekr-text">سبحان الله وبحمده</p>
+        <div class="counter-container">
+            <button class="counter-btn" onclick="addCount(this, 100)">تكرار</button>
+            <div>
+                <span class="count-num">0</span> <span class="target-num">/ 100</span>
+            </div>
+        </div>
     </div>
 
     <footer>
-        <p>تم البرمجة بكل ود | 2026</p>
+        <p>موقع أذكار بسيط - تم التصميم بلمسة جمالية 2026</p>
     </footer>
 </div>
-
 <script>
-    function updateCounter(button) {
-        let display = button.querySelector('.count-display');
-        let currentCount = parseInt(display.innerText);
-        display.innerText = currentCount + 1;
+    function addCount(btn, target) {
+        const countSpan = btn.parentElement.querySelector('.count-num');
+        let current = parseInt(countSpan.innerText);
         
-        // تأثير بصري بسيط عند الضغط
-        button.style.backgroundColor = "#e67e22";
-        setTimeout(() => {
-            button.style.backgroundColor = "#27ae60";
-        }, 100);
+        if (current < target) {
+            current++;
+            countSpan.innerText = current;
+            
+            // إذا اكتمل العدد يتغير لون الزر
+            if (current === target) {
+                btn.style.background = "#27ae60";
+                btn.innerText = "تم";
+            }
+        }
     }
 </script>
 
